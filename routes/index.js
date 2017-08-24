@@ -18,7 +18,6 @@ exports.index = function (req, res, next) {
 };
 
 
-
 exports.create = function (req, res, next) {
       var todo = new Todo({
             user_id: req.cookies.user_id,
@@ -40,10 +39,10 @@ exports.create = function (req, res, next) {
 exports.dogcreate = function (req, res, next) {
 
       var dog1 = new Dog({
-            name    : "dowone",
-            nickname    : 'dnagkeun',
-            owner : 'kyungjoon',
-            birthday : new Date()
+            name: "dowone",
+            nickname: 'dnagkeun',
+            owner: 'kyungjoon',
+            birthday: new Date()
       });
 
 
@@ -56,6 +55,7 @@ exports.dogcreate = function (req, res, next) {
             res.redirect('/dog/');
       });
 };
+
 
 exports.dogindex = function (req, res, next) {
 
@@ -72,16 +72,27 @@ exports.dogindex = function (req, res, next) {
 };
 
 
-
 exports.getDogListToJson = function (req, res, next) {
 
       Dog.find().exec(function (err, dogs) {
 
-            if (err){
+            if (err) {
                   return next(err);
             }
 
             res.json({"dogList": dogs});
+      });
+};
+
+exports.get = function (req, res, next) {
+
+      console.log("id--->"+ req.params.id);
+      Dog.findById(req.params.id, function (err, dog) {
+
+            if (err) return next(err);
+
+
+            res.json({"dog": dog});
       });
 };
 
@@ -101,7 +112,28 @@ exports.destroy = function (req, res, next) {
                   res.redirect('/');
             });
       });
+
 };
+
+exports.dogdestroy = function (req, res, next) {
+      Dog.findById(req.params.id, function (err, dog) {
+            
+/*
+
+            if (dog._id !== req.params.id) {
+                  return utils.forbidden(res);
+            }
+*/
+
+            dog.remove(function (err, todo) {
+                  if (err) return next(err);
+
+                  res.redirect('/dog/');
+            });
+      });
+
+};
+
 
 exports.edit = function (req, res, next) {
       var user_id = req.cookies ?
@@ -117,7 +149,7 @@ exports.edit = function (req, res, next) {
             });
       });
 
-      Todo.find
+
 };
 
 exports.update = function (req, res, next) {
