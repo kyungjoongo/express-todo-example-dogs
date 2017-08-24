@@ -72,6 +72,20 @@ exports.dogindex = function (req, res, next) {
 };
 
 
+
+exports.getDogListToJson = function (req, res, next) {
+
+      Dog.find().exec(function (err, dogs) {
+
+            if (err){
+                  return next(err);
+            }
+
+            res.json({"dogList": dogs});
+      });
+};
+
+
 exports.destroy = function (req, res, next) {
       Todo.findById(req.params.id, function (err, todo) {
             var user_id = req.cookies ?
@@ -102,6 +116,8 @@ exports.edit = function (req, res, next) {
                   current: req.params.id
             });
       });
+
+      Todo.find
 };
 
 exports.update = function (req, res, next) {

@@ -42,8 +42,9 @@ app.get(  '/edit/:id',    routes.edit );
 app.post( '/update/:id',  routes.update );
 
 
-app.get( '/dog/create',      routes.dogcreate );
-app.get(  '/dog/',            routes.dogindex );
+app.get('/dog/create', routes.dogcreate);
+app.get('/dog/', routes.dogindex);
+app.get('/dog/list', routes.getDogListToJson);
 
 app.use( static( path.join( __dirname, 'public' )));
 
