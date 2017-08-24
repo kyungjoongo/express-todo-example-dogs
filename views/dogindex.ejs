@@ -1,0 +1,20 @@
+<% layout( 'layout' ) -%>
+
+<h1 id="page-title"><%= title %></h1>
+
+<div id="list">
+  <form action="/create" method="post" accept-charset="utf-8">
+    <div class="item-new">
+      <input class="input" type="text" name="content" />
+    </div>
+  </form>
+
+<% dogs.forEach( function ( dog ){ %>
+  <div class="item">
+    <a><%= dog.name %></a>
+    <a><%= dog.nickname %></a>
+    <a><%= dog.owner %></a>
+
+  </div>
+<% }); %>
+</div>
