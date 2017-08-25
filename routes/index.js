@@ -35,55 +35,6 @@ exports.create = function (req, res, next) {
       });
 };
 
-
-exports.dogcreate = function (req, res, next) {
-
-      var dog1 = new Dog({
-            name: "dowone",
-            nickname: 'dnagkeun',
-            owner: 'kyungjoon',
-            birthday: new Date()
-      });
-
-
-      dog1.save(function (err, todo, count) {
-            if (err)
-                  return next(err);
-            else
-                  console.log("dog1 성공이네");
-
-            res.redirect('/dog/');
-      });
-};
-
-
-exports.dogindex = function (req, res, next) {
-
-
-      Dog.find().exec(function (err, dogs) {
-
-            if (err) return next(err);
-
-            res.render('dogindex', {
-                  title: 'Express Todo Example',
-                  dogs: dogs
-            });
-      });
-};
-
-
-exports.getDogListToJson = function (req, res, next) {
-
-      Dog.find().exec(function (err, dogs) {
-
-            if (err) {
-                  return next(err);
-            }
-
-            res.json({"dogList": dogs});
-      });
-};
-
 exports.get = function (req, res, next) {
 
       console.log("id--->"+ req.params.id);
@@ -95,6 +46,9 @@ exports.get = function (req, res, next) {
             res.json({"dog": dog});
       });
 };
+
+
+
 
 
 exports.destroy = function (req, res, next) {
@@ -115,24 +69,7 @@ exports.destroy = function (req, res, next) {
 
 };
 
-exports.dogdestroy = function (req, res, next) {
-      Dog.findById(req.params.id, function (err, dog) {
-            
-/*
 
-            if (dog._id !== req.params.id) {
-                  return utils.forbidden(res);
-            }
-*/
-
-            dog.remove(function (err, todo) {
-                  if (err) return next(err);
-
-                  res.redirect('/dog/');
-            });
-      });
-
-};
 
 
 exports.edit = function (req, res, next) {

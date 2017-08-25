@@ -18,11 +18,12 @@ var errorHandler = require('errorhandler');
 var static = require('serve-static');
 
 var app = express();
-var routes = require('./routes');
+var routes = require('./routes/index');
+var dogroutes = require('./routes/dogroute');
 
 
 // all environments
-app.set('port', process.env.PORT || 3001);
+app.set('port', process.env.PORT || 3000);
 app.engine('ejs', engine);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -43,11 +44,11 @@ app.post('/update/:id', routes.update);
 
 
 // 도그 라우트s
-app.get('/dog/create', routes.dogcreate);
-app.get('/dog/', routes.dogindex);
-app.get('/dog/list', routes.getDogListToJson);
-app.get('/dog/get/:id', routes.get);
-app.get('/dog/delete/:id', routes.dogdestroy);
+app.post('/dog/create', dogroutes.dogcreate);
+app.get('/dog/', dogroutes.dogindex);
+app.get('/dog/list', dogroutes.getDogListToJson);
+app.get('/dog/get/:id', dogroutes.dogget);
+app.get('/dog/delete/:id', dogroutes.dogdestroy);
 
 app.use(static(path.join(__dirname, 'public')));
 
